@@ -9,6 +9,33 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
   }
+/* New Message Input Styles */
+.new-message-input {
+  width: 100%; /* Full width of the container */
+  padding: 12px; /* Padding inside the input */
+  font-size: 16px; /* Font size for better readability */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove default outline */
+  box-sizing: border-box; /* Ensure padding is included in width/height */
+  margin-bottom: 10px; /* Space below the input */
+  background-color: #f9f9f9; /* Slightly off-white background */
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for focus effect */
+}
+
+.new-message-input:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow effect on focus */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .new-message-input {
+      font-size: 14px; /* Smaller font size on mobile */
+      padding: 10px; /* Adjust padding on mobile */
+  }
+}
+
   
   /* The header of the chat, such as the room name */
   .chat-header {
@@ -75,5 +102,32 @@
   
   .chat-send-button:hover {
     background-color: #0056b3;
+  }
+  .signout-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  
+  .signout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
+  .signout-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .signout-button:active {
+    background-color: #c62828; /* Even darker red when clicked */
   }
   

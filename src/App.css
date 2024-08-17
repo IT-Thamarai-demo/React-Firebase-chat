@@ -120,4 +120,34 @@
 .blue-toastify .Toastify__progress-bar--error {
   background-color: #ff1a1a; /* Darker red progress bar */
 }
+/* App.css */
+
+/* Sign Out Button Styles */
+.signout-button {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.signout-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.signout-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.signout-button:active {
+  background-color: #c62828; /* Even darker red when clicked */
+}
 

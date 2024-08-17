@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { addDoc, serverTimestamp, collection, onSnapshot, query, where } from "firebase/firestore";
+import { addDoc, serverTimestamp, collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import "../styles/Chat.css";  // Import the CSS file
+
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,13 +14,14 @@ export const Chat = (props) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        const queryMessage = query(messageRef, where("chat", "==", chat));
+        const queryMessage = query(messageRef, where("chat", "==", chat),orderBy("createdAt"));
         const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
             const clientMessages = [];
             snapshot.forEach((doc) => {
                 clientMessages.push({ ...doc.data(), id: doc.id });
             });
             setMessages(clientMessages);
+            orderBy("createdAt")
         });
 
         return () => unsubscribe();
@@ -85,7 +88,7 @@ export const Chat = (props) => {
                     placeholder="Type your message"
                     value={newMessage}
                 />
-                <button className="send-button" type="submit">Send</button>
+                <button className="chat-send-button" type="submit" >Send</button>
             </form>
             <ToastContainer /> {/* Add ToastContainer */}
         </div>
