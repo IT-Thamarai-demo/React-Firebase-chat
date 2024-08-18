@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { addDoc, serverTimestamp, collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
+import { addDoc, serverTimestamp, collection, onSnapshot, query, where } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import "../styles/Chat.css";  // Import the CSS file
-
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { format } from 'date-fns';  // Import date-fns
 
 export const Chat = (props) => {
     const { chat } = props;
@@ -14,17 +13,17 @@ export const Chat = (props) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        const queryMessage = query(messageRef, where("chat", "==", chat),orderBy("createdAt"));
+        const queryMessage = query(messageRef, where("chat", "==", chat));
         const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
             const clientMessages = [];
             snapshot.forEach((doc) => {
                 clientMessages.push({ ...doc.data(), id: doc.id });
             });
             setMessages(clientMessages);
-            orderBy("createdAt")
         });
-
+    
         return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chat]);
 
     const handleSubmit = async (e) => {
@@ -42,7 +41,6 @@ export const Chat = (props) => {
 
             setNewMessage("");
 
-            // Show success notification
             toast.success("Message sent successfully!", {
                 position: "top-right",
                 autoClose: 2000,
@@ -56,7 +54,6 @@ export const Chat = (props) => {
         } catch (error) {
             console.error("Error sending message: ", error);
 
-            // Show error notification
             toast.error("Failed to send message. Please try again.", {
                 position: "top-right",
                 autoClose: 3000,
@@ -76,8 +73,11 @@ export const Chat = (props) => {
             <div className="messages">
                 {messages.map((message) => (
                     <div className="message" key={message.id}>
-                        <span><strong>{message.user}</strong>: </span>  {/* Display the user */}
+                        <span><strong>{message.user}</strong>: </span>
                         <span>{message.text}</span>
+                        <span className="timestamp">
+                            {message.createdAt ? format(message.createdAt.toDate(), 'p, MMM dd') : 'Sending...'}
+                        </span> {/* Display the formatted timestamp */}
                     </div>
                 ))}
             </div>
@@ -88,9 +88,9 @@ export const Chat = (props) => {
                     placeholder="Type your message"
                     value={newMessage}
                 />
-                <button className="chat-send-button" type="submit" >Send</button>
+                <button className="send-button" type="submit">Send</button>
             </form>
-            <ToastContainer /> {/* Add ToastContainer */}
+            <ToastContainer />
         </div>
     );
 };
