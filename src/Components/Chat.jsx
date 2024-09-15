@@ -9,7 +9,7 @@ import { format } from 'date-fns';  // Import date-fns
 export const Chat = (props) => {
     const { chat } = props;
     const [newMessage, setNewMessage] = useState("");
-    const messageRef = collection(db, "Messeges");
+    const messageRef = collection(db, "Demo");
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
